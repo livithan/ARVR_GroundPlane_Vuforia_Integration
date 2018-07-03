@@ -44,7 +44,10 @@ public class SwitchARContentManagement : MonoBehaviour {
         m_touchHandlerA = ARContentA.GetComponentInChildren<TouchHandler>();
         m_touchHandlerB = ARContentB.GetComponentInChildren<TouchHandler>();
 
-        TurnOffB();
+        TurnOffBehaviour(false);
+        TurnOffBehaviour(true);
+        TurnOffBehaviour(false);
+
 
     }
 	
@@ -66,6 +69,7 @@ public class SwitchARContentManagement : MonoBehaviour {
     }
 
     private void TurnOnA() {
+        Debug.Log("BOOM");
         m_planeManagerA.enabled = true;
         m_anchorInputListenerBehaviourA.enabled = true;
         m_planeFinderBehaviourA.enabled = true;
@@ -87,6 +91,7 @@ public class SwitchARContentManagement : MonoBehaviour {
 
     private void TurnOnB()
     {
+        Debug.Log("BAP");
         m_planeManagerB.enabled = true;
         m_anchorInputListenerBehaviourB.enabled = true;
         m_planeFinderBehaviourB.enabled = true;
