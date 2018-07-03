@@ -154,7 +154,7 @@ PlayerSettings:
     Standalone: com.oe.ARVR_GroundPlaneTest
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 18
+  AndroidMinSdkVersion: 26
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
