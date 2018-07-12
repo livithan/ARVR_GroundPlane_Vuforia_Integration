@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GroundPlaneEdit.unity
-    guid: 2552d675b33009a4ebe5610b7a07dec9
+    path: Assets/Scenes/ONI101_InitialSetup.unity
+    guid: 5c8e2fecd2de79c41b2b1c57c08ddc3c
   m_configObjects: {}

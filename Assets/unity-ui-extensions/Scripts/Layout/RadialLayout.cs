@@ -53,7 +53,7 @@ namespace UnityEngine.UI.Extensions
             CalculateRadial();
         }
 #endif
-        void CalculateRadial()
+        public void CalculateRadial()
         {
             m_Tracker.Clear();
             if (transform.childCount == 0)

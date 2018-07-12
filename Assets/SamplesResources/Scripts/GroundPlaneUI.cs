@@ -20,8 +20,8 @@ public class GroundPlaneUI : MonoBehaviour
     public CanvasGroup m_ScreenReticle;
 
     [Header("UI Buttons")]
-    //public Button m_ResetButton;
-    //public Toggle m_PlacementToggle;//, m_GroundToggle, m_MidAirToggle;
+    public Button m_ResetButton;
+    public Toggle m_PlacementToggle;//, m_GroundToggle, m_MidAirToggle;
     #endregion // PUBLIC_MEMBERS
 
 
@@ -64,7 +64,7 @@ public class GroundPlaneUI : MonoBehaviour
 
     void Update()
     {
-        //m_ResetButton.interactable = /*m_MidAirToggle.interactable = m_GroundToggle.interactable =*/ m_ProductPlacement.IsPlaced;
+        m_ResetButton.interactable = /*m_MidAirToggle.interactable = m_GroundToggle.interactable =*/ m_ProductPlacement.IsPlaced;
 
         //m_TrackerStatusImage.enabled = !string.IsNullOrEmpty(m_TrackerStatus.text);
     }
@@ -81,14 +81,24 @@ public class GroundPlaneUI : MonoBehaviour
             m_Instructions.transform.parent.gameObject.SetActive(true);
             m_Instructions.enabled = true;
 
+            /*
             if (PlaneManager.planeMode == PlaneManager.PlaneMode.GROUND)
             {
                 m_Instructions.text = "Tap to place Astronaut";
             }
-            else if (PlaneManager.planeMode == PlaneManager.PlaneMode.PLACEMENT)
+            */
+
+            /*
+            if (PlaneManager.planeMode == PlaneManager.PlaneMode.NONE)
+            {
+                m_Instructions.text = "";
+            }
+            */
+
+            /*else*/ if (PlaneManager.planeMode == PlaneManager.PlaneMode.PLACEMENT)
             {
                 m_Instructions.text = (m_ProductPlacement.IsPlaced) ?
-                    "• Touch and drag to move Chair" +
+                    "• Touch and drag to move Object" +
                     "\n• Two fingers to rotate" +
                     ((m_TouchHandler.enablePinchScaling) ? " or pinch to scale" : "") +
                     "\n• Double-tap to reset the Ground Plane"
@@ -100,21 +110,28 @@ public class GroundPlaneUI : MonoBehaviour
         {
             // No automatic hit test, so set alpha based on which plane mode is active
             m_ScreenReticle.alpha =
-                (PlaneManager.planeMode == PlaneManager.PlaneMode.GROUND ||
+                (/*PlaneManager.planeMode == PlaneManager.PlaneMode.GROUND ||*/
                 PlaneManager.planeMode == PlaneManager.PlaneMode.PLACEMENT) ? 1 : 0;
 
             m_Instructions.transform.parent.gameObject.SetActive(true);
             m_Instructions.enabled = true;
 
-            if (PlaneManager.planeMode == PlaneManager.PlaneMode.GROUND ||
-                PlaneManager.planeMode == PlaneManager.PlaneMode.PLACEMENT)
+            if (/*PlaneManager.planeMode == PlaneManager.PlaneMode.GROUND ||*/PlaneManager.planeMode == PlaneManager.PlaneMode.PLACEMENT)
             {
                 m_Instructions.text = "Point device towards ground";
             }
+
+            /*
             else if (PlaneManager.planeMode == PlaneManager.PlaneMode.MIDAIR)
             {
                 m_Instructions.text = "Tap to place Drone";
             }
+            */
+        }
+
+        if (PlaneManager.planeMode == PlaneManager.PlaneMode.NONE)
+        {
+            m_Instructions.text = "";
         }
     }
 

@@ -157,6 +157,20 @@ public class ProductPlacement : MonoBehaviour
             gameObject.transform.SetParent(null);
         }
     }
+
+    /*
+    public void EnableVisibility(bool b) {
+        if (b)
+        {
+            meshRenderer.enabled = true;
+            shadowRenderer.enabled = true;
+        }
+        else {
+            meshRenderer.enabled = false;
+            shadowRenderer.enabled = false;
+        }
+    }
+    */
     #endregion // PUBLIC_METHODS
 
 

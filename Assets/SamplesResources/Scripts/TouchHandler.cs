@@ -117,6 +117,11 @@ public class TouchHandler : MonoBehaviour
 
     static bool IsSingleFingerDown()
     {
+        if (Input.GetTouch(0).deltaTime <= 2.0f) {
+            Debug.Log("Touch phase longer than 2 seconds");
+        }
+
+
         if (Input.touchCount == 0 || Input.touchCount >= 2)
             lastTouchCount = Input.touchCount;
 

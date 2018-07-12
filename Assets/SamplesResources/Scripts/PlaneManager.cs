@@ -13,8 +13,9 @@ public class PlaneManager : MonoBehaviour
 {
     public enum PlaneMode
     {
-        GROUND,
-        MIDAIR,
+        NONE,
+        //GROUND,
+        //MIDAIR,
         PLACEMENT
     }
 
@@ -58,7 +59,9 @@ public class PlaneManager : MonoBehaviour
     int m_AnchorCounter;
     bool uiHasBeenInitialized;
     static bool anchorExists; // backs public AnchorExists property
-    
+
+    private ARRenderedCanvasManager arRCM;
+
     #endregion // PRIVATE_MEMBERS
 
 
@@ -79,9 +82,10 @@ public class PlaneManager : MonoBehaviour
 
         m_GroundPlaneUI = FindObjectOfType<GroundPlaneUI>();
 
-        
+        arRCM = GameObject.FindGameObjectWithTag("FXCanvas").GetComponent<ARRenderedCanvasManager>();
 
         UtilityHelper.EnableRendererColliderCanvas(m_PlacementAugmentation, false);
+
     }
 
     void Update()
@@ -155,7 +159,7 @@ public class PlaneManager : MonoBehaviour
                 // Place object based on Ground Plane mode
                 switch (planeMode)
                 {
-                    case PlaneMode.GROUND:
+                    case PlaneMode.NONE:
                         /*
                         m_ContentPositioningBehaviour.AnchorStage = m_PlaneAnchor;
                         m_ContentPositioningBehaviour.PositionContentAtPlaneAnchor(result);
@@ -165,7 +169,28 @@ public class PlaneManager : MonoBehaviour
                         m_PlaneAugmentation.transform.localPosition = Vector3.zero;
                         UtilityHelper.RotateTowardCamera(m_PlaneAugmentation);
                         */
+                        UtilityHelper.EnableRendererColliderCanvas(m_PlacementAugmentation, false);
+                        ResetScene();
+                        ResetTrackers();
+
+                        arRCM.FadeCanvas(false);
+
                         break;
+                    /*
+
+                case PlaneMode.GROUND:
+
+                    m_ContentPositioningBehaviour.AnchorStage = m_PlaneAnchor;
+                    m_ContentPositioningBehaviour.PositionContentAtPlaneAnchor(result);
+                    UtilityHelper.EnableRendererColliderCanvas(m_PlaneAugmentation, true);
+
+                    // Astronaut should rotate toward camera with each placement
+                    m_PlaneAugmentation.transform.localPosition = Vector3.zero;
+                    UtilityHelper.RotateTowardCamera(m_PlaneAugmentation);
+
+                    break;
+                    */
+
 
                     case PlaneMode.PLACEMENT:
 
@@ -174,6 +199,9 @@ public class PlaneManager : MonoBehaviour
                             m_ContentPositioningBehaviour.AnchorStage = m_PlacementAnchor;
                             m_ContentPositioningBehaviour.PositionContentAtPlaneAnchor(result);
                             UtilityHelper.EnableRendererColliderCanvas(m_PlacementAugmentation, true);
+
+                            arRCM.FadeCanvas(true);
+
                         }
 
                         if (!m_ProductPlacement.IsPlaced)
@@ -181,7 +209,6 @@ public class PlaneManager : MonoBehaviour
                             m_ProductPlacement.SetProductAnchor(m_PlacementAnchor.transform);
                             m_TouchHandler.enableRotation = true;
                         }
-                        
 
                         break;
                 }
@@ -205,6 +232,16 @@ public class PlaneManager : MonoBehaviour
             m_PlaneFinder.enabled = true;
             //m_MidAirPositioner.enabled = false;
             m_TouchHandler.enableRotation = m_PlacementAugmentation.activeInHierarchy;
+        }
+
+        //Here we are setting it off when off!
+        else {
+            planeMode = PlaneMode.NONE;
+            m_PlaneFinder.enabled = false;
+            //m_TouchHandler.enableRotation = false
+
+            ResetScene();
+            ResetTrackers();
         }
     }
 
